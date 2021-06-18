@@ -1,0 +1,20 @@
+version: '3.5'
+#Docker Networks
+networks:
+  networkStun:
+    name: network_stun
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: "docker_stun"
+services:
+  stun:
+    build: .
+    image: networh/stun
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3478:3478/tcp"
+#      - "3478:3478/udp"
+    networks:
+      - networkStun
